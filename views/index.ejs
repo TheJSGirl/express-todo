@@ -1,31 +1,41 @@
-<% include ../views/particials/header %>
+<% include ../views/partials/header %>
 
 <div class="container">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-6">
 
             <form method="post" action="/todo/add">
-                <div>
+                <div class="form-group">
                     <label >ToDO Name</label>
-                    <input type="text"  name="title" placeholder="Add Title">
+                    <input type="text" class="form-control" name="title" placeholder="Add Title">
                 </div><br>
 
-                <div>
+                <div class="form-group">
                     <label >Description</label>
-                    <textarea  name="description"  placeholder="Add Description"></textarea>
+                    <textarea  name="description" class= "form-control" placeholder="Add Description"></textarea>
                 </div>
-                <button type="submit">Submit</button>
+                <button type="submit" class="btn btn-primary btn-block" >Submit</button>
             </form>
-                <ul>
+               
+
+        </div>
+         <div class="col-md-6">
+          <ul class="list-group">
                     <% todos.forEach(function(todos){ %>
                     <!--<li><%= todos.text %> - <%= todos.body %> &nbsp; &nbsp; <a href="/todos/delete/<%= todos._id %>" class="btn btn-danger">Delete </a></li>-->
-                    <li><%= todos.text %> - <%= todos.body %> &nbsp; &nbsp; <a href="#" data-id="<%= todos._id %>" class="delete-todo btn btn-danger">Delete </a></li>
+                    <li class="list-group-item">
+                        <%= todos.text %> - <span class="description"><%= todos.body %></span> 
+                        &nbsp; &nbsp; 
+                        <a  href="#" data-id= "<%= todos._id %>" class="delete-todo btn btn-danger">Delete </a>
+                        
+                        <a  href ="todos/edit/<%= todos._id %>"  class="edit-todo btn btn-warning">Edit </a>
+                        
+                    </li>
 
                 <% }); %>
                 </ul>
-
-        </div>
+         </div>
     </div>
 </div>    
 
-<% include ../views/particials/footer %>
+<% include ../views/partials/footer %>

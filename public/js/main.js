@@ -1,5 +1,6 @@
 'use strict'
 $(document).ready(()=>{
+
     $('.delete-todo').on('click', (e) => {
         e.preventDefault();
 

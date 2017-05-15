@@ -1,0 +1,25 @@
+<% include ../views/partials/header %>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+
+            <form method="post" action="/todos/edit/<%= todo._id %>">
+         
+                <div>
+                    <label >ToDO Name</label>
+                    <input type="text"  name="title" placeholder="Add Title" value="<%= todo.text %>">
+                </div><br>
+
+                <div>
+                    <label >Description</label>
+                    <textarea  name="description"  placeholder="Add Description" ><%= todo.body %></textarea>
+                </div>
+                <button type="submit">edit</button>
+            </form>
+               
+
+        </div>
+    </div>
+</div>    
+
+<% include ../views/partials/footer %>

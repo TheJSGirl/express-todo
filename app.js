@@ -1,16 +1,15 @@
 'use strict';
-
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
-const port = 3434;
+const port = 5000;
 
 //app init
 
 const app = express();
 
 
-//bodyparser moddleware
+//bodyparser middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(express.static(path.join(__dirname, '/public')));
@@ -27,8 +26,11 @@ const url = 'mongodb://localhost:27017/todoapp';
 
 //conect to mongodb
 MongoCLient.connect(url, (err, database)=>{
-    console.log('mongodb connected');
-    if(err) throw err;
+    if(err) {
+        return console.log('failed to connect to db');
+    }
+    
+    console.log('Connected to DB');
 
     let db = database;
     let Todos = db.collection('todos');
@@ -44,6 +46,23 @@ MongoCLient.connect(url, (err, database)=>{
             res.render('index', {
                 title : "All Todos",
                 todos: todos
+            });
+
+        });
+    });
+
+
+    //route for edit 
+    app.get('/todos/edit/:id', (req, res, next) =>{
+        const query = {_id : ObjectID(req.params.id)};
+        console.log('edit route id:', query);
+        Todos.find(query).next((err, todo)=>{
+            if(err){
+                return console.log(err);
+            }
+           
+            res.render('edit', {
+                todo: todo
             });
 
         });
